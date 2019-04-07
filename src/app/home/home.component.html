@@ -1,0 +1,107 @@
+
+<div class="container">
+    <div>
+      <h4 class="text-danger text-right" routerLink="/logOut">LogOut</h4>
+    </div>
+  </div>
+<div class="container">
+<table class="table table-striped">
+      <thead>
+      <tr>
+      <th>Sl.No</th>
+      <th>Email</th>
+      <th>Complaint Heading</th>
+      <th>Creayed At</th>
+      <th>Current Status</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr data-toggle="modal" data-target="#myModal" *ngFor="let item of complaint_data; let i= index" (click)="openMdal(item.complaintId)">
+        <td>{{i+1}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.complaint_heading}}</td>
+        <td>{{item.created_at}}</td>
+        <td>{{item.Current_status}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="container">
+    
+  
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h1 class="modal-title">Modal Heading</h1>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+            <h3>Complaint Deatils</h3>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Heading</th>
+                  <th>Descripion</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>email</td>
+                      <td>{{modalData.email}}</td>
+                    </tr>
+                    <tr>
+                      <td>complaint_heading</td>
+                      <td>{{modalData.complaint_heading}}</td>
+                    </tr>
+                    <tr>
+                      <td>complaint_description</td>
+                      <td>{{modalData.complaint_description}}</td>
+                    </tr>
+                    <tr>
+                      <td>Action Log</td>
+                      <td><ul>
+                        <li>Complaint Submitted Successfully at {{modalData.submitted}}</li>
+                        <li *ngIf='modalData.accepted'>Status changed from 'Submitted' to 'Accepted' at  {{modalData.accepted}}</li>
+                        <li *ngIf='modalData.processing'>Status changed from 'Accepted' to 'Processing' at  {{modalData.processing}}</li>
+                        <li  *ngIf='modalData.resolved'>Status changed from 'Processing' to 'Resolved' at  {{modalData.resolved}}</li>
+                      </ul></td>
+                    </tr>
+                    <tr>
+                      <td>created_at</td>
+                      <td>{{modalData.created_at}}</td>
+                    </tr>
+                    <tr>
+                      <td>Status</td>
+                      <td>{{modalData.Current_status}}</td>
+                    </tr>
+                    <tr>
+                      <td>Change Status</td>
+                      <td>
+                        <select class="form-control" name="status" [(ngModel)]="statusName">
+                          <option value="undefined">Select</option>                        
+                          <option *ngFor="let item of statuses" [value]="item.statusName">{{item.statusName}}</option>
+                        </select>
+                        <button (click)="updateStatus(modalData.complaintId)" class="btn btn-success">Update Status</button>
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>

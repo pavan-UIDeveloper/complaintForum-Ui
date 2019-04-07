@@ -1,0 +1,56 @@
+
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+    <i class='fas fa-user' style='font-size:50px'></i>
+      <p style="color:red">{{passwordnotmatched}}</p>
+      <p style="color:red">{{loginFail}}</p>
+      <p style="color:green">{{userCreated}}</p>
+     
+    </div>
+
+    <!-- Login Form -->
+    <form *ngIf="!isRegister" #logform="ngForm">
+      <input type="text" required  id="login" class="fadeIn second" name="e-mail" [(ngModel)]="loginobj.email" placeholder="email" #email="ngModel">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+      class="alert alert-danger">It should not be empty</div>
+      <input type="password" required id="password" class="fadeIn third" name="pwd" [(ngModel)]="loginobj.password" placeholder="password" #password="ngModel">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+      class="alert alert-danger">It should not be empty</div>
+
+      <button (click)="userlogin()" [disabled]="logform.invalid">Login</button>
+
+
+    </form>
+
+    <form *ngIf="isRegister" #regform="ngForm">
+        <input type="text" required  id="login" class="fadeIn second" name="e-mail" [(ngModel)]="loginobj.email" placeholder="email" #email="ngModel">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="alert alert-danger">It should not be empty</div>
+        <input type="password" required id="password" class="fadeIn third" name="pwd" [(ngModel)]="loginobj.password" placeholder="password" #password="ngModel">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="alert alert-danger">It should not be empty</div>
+        <input type="password" id="password" class="fadeIn third"  name="cpwd" [(ngModel)]="loginobj.repassword" placeholder="confirm Password" #re_password="ngModel">
+        <div *ngIf="re_password.invalid && (re_password.dirty || re_password.touched)"
+        class="alert alert-danger">It should not be empty</div>
+        <button (click)="userRegister()" [disabled]="regform.invalid">Register</button>
+  
+  
+      </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+    <div *ngIf="!isRegister"> 
+      Not Registered yet, <a class="underlineHover" (click)="register()" routerLink="/login">Register Here</a>
+      </div>
+      <div *ngIf="isRegister"> 
+      You have an account already <a class="underlineHover" (click)="login()" routerLink="/login">Login Here</a>
+      </div>
+    </div>
+
+  </div>
+</div>
